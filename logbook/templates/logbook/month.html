@@ -1,0 +1,27 @@
+{% extends "logbook/base.html" %}
+
+{% block sidebar %}
+{% if month_hour_data %}
+      <li> <h4> {{ year }} </h4></li>
+    {% for d in month_hour_data %}
+      <li> <a href={% url 'month' year d.month %}>{{ d.month }}</a>
+      ({{ d.hours }} hours) </li>
+    {% endfor %}
+      <li> <a href={% url 'index' %}>All years</a>
+{% else %}
+    <p>No entries this year.</p>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+   <div>
+   {% include "logbook/flight_list.html" %}
+   </div>
+{% endblock %}
+
+
+    
+
+</body> </html> 
+    
+

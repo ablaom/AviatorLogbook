@@ -1,0 +1,10 @@
+from django.contrib import admin
+
+from .models import Flight, FAA_part, Manufacturer, Make_and_model, Engine
+
+admin.site.register(Flight)
+admin.site.register(Equipment)
+admin.site.register(FAA_part)
+admin.site.register(Manufacturer)
+admin.site.register(Make_and_model)
+admin.site.register(Engine)

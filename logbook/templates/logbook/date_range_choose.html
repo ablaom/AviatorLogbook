@@ -1,0 +1,15 @@
+{% extends 'logbook/base.html' %}
+
+{% block content %}
+<h4> Summarize by date range:</h4>
+{{ message }}
+<div style="margin:1em 0em">
+<form action={% url 'date_range_choose' %} method=POST>
+  {% csrf_token %}
+  Beginning date: {{ form.begin }} {{ form.begin.errors }} &nbsp &nbsp
+  End date: {{ form.end }} {{ form.end.errors }}
+  <br>
+  <input type="submit" value="Submit">
+</form>
+</div>
+{% endblock %}

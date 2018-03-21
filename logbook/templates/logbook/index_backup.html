@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html> <head>
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'logbook/verde_moderna.css' %}"/>
+<title>Flight Logbook</title>
+</head>
+
+<body>
+
+<h1> {{ user.first_name }} {{ user.last_name }} </h1>
+<div>
+  <table style="font-size:1em">
+   <tr> <th></th><th style="padding:0.5em">Total</th> <th>In last 90 days</th> <th>In last
+     30 days</th> </tr>
+   <tr style="padding:0.5em">
+     <th style="background-color:white">Hours</th>
+     <td style="padding:0.5em">{{ duration_sum }}</td>
+     <td>{{ hours_in_last_90 }}</td>
+     <td>{{ hours_in_last_30 }}</td>
+   </tr>
+   <tr style="background-color:white">
+     <th style="background-color:white">Landings</th>
+     <td style="padding:0.5em">{{ landings }}</td>
+     <td>{{ landings_in_last_90 }}</td>
+     <td>{{ landings_in_last_30 }}</td>
+   </tr>
+  </table>
+</div>
+<br>
+<form action={% url 'dispatch' %} method=POST>
+  {% csrf_token %} 
+  <input type="submit" value="Detailed summary" name="action">
+  <input type="submit" value="Summarize by make and model" name="action">
+  <input type="submit" value="Summarize by equipment complexity" name="action">
+</form>
+
+<div>
+{% include "logbook/flight_list.html" %}
+</div>
+{% if year_hour_data %}
+    <ul class="sidebar">
+    <li style="text-align:center"><h2>Log</h2></li>
+    {% for d in year_hour_data %}
+      <li> <a href={% url 'year' d.year %}>{{ d.year }}</a>
+       ({{ d.hours }} hours)</li>
+    {% endfor %}
+    </ul>
+{% else %}
+{% endif %}
+
+<div>
+  <form action={% url 'logout' %} method=POST>
+  {% csrf_token %}
+  <input type="submit" value="Logout">
+  </form>
+</div>
+
+</body> </html>
+

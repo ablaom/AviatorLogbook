@@ -1,0 +1,15 @@
+{% extends 'logbook/base.html' %}
+
+{% block content %}
+<h4> Summarize by equipment complexity:</h4>
+<form action={% url 'equipment_process' %} method=POST>
+  {% csrf_token %}
+  <select name="id">
+  {% for e in equipments %}
+    <option value={{ e.id }}>{{ e.complexity }}</option>
+  {% endfor %}
+  </select>
+  <br>
+  <input type="submit" value="Submit">
+  </form>
+{% endblock %}

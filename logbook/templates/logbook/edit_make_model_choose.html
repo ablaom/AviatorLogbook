@@ -1,0 +1,21 @@
+{% extends 'logbook/base.html' %}
+
+{% block content %}
+<h4> Select a make and model:</h4>
+<form action={% url 'edit_make_model_process' %} method=POST>
+  {% csrf_token %}
+  <select style="margin-bottom:0.6em" name="id">
+  {% for m in make_and_models %}
+    <option value={{ m.id }}>{{ m.name }}</option>
+  {% endfor %}
+  </select>
+  <br>
+  <input type="submit" value="Edit" name="action"><br>
+  <input type="submit" value="Delete" name="action"><br>
+  <span style="display:inline-block; width:1.5em;"></span> or </li><br>
+  <input type="submit" value="Add a new aircraft make and model" name="action"><br>
+  <input type="submit" value="Cancel" name="action">
+</form>
+  
+{% endblock %}
+

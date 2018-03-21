@@ -1,0 +1,17 @@
+{% extends 'logbook/base.html' %}
+
+{% block content %}
+<h4> Make and model edit page</h4>
+<p>If you delete <strong>{{ make_model }}</strong> then all information about this
+aircraft will be lost. </p>
+
+<form action={% url 'edit_make_model_delete' id %} method=POST>
+  {% csrf_token %}
+  <input type="submit" value="Delete">
+</form>
+<form action={% url 'edit_make_model_choose' %} method=POST>
+  {% csrf_token %}
+  <input type="submit" value="Cancel">
+</form>
+{% endblock %}
+

@@ -1,0 +1,16 @@
+{% extends 'logbook/base.html' %}
+
+{% block content %}
+<h4> Summarize by make and model:</h4>
+<form action={% url 'make_model_process' %} method=POST>
+  {% csrf_token %}
+  <select name="id">
+  {% for m in make_and_models %}
+    <option value={{ m.id }}>{{ m.name }}</option>
+  {% endfor %}
+  </select>
+  <br>
+  <input type="submit" value="Submit">
+</form>
+{% endblock %}
+

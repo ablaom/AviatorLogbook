@@ -1,0 +1,22 @@
+{% if flights %}
+<h4> {{ flights_label }}:</h4>
+<table>
+  <tr>
+    <th style="padding:0.5em">  </th> <th> Date </th> <th> Route </th> <th>Aircraft
+      ID</th> <th> Duration (hrs) </th> <th> Landings </th> <th>
+	Approaches </th>
+      
+  </tr>
+  {% for f in flights %}
+  <tr>
+    <td style="background-color:white"> <a href={% url 'flight' f.id %}>No. {{ f.id }}</a> </td>
+    <td style="padding:0.5em">{{ f.date.month }}.{{ f.date.day }}.{{ f.date.year }}</td>
+    <td>{{ f.route }}</td> <td>{{ f.aircraft_ID }}</td><td>{{ f.duration }}</td>
+    <td> {{ f.total_landings }} </td><td>{{ f.total_approaches }}</td>
+  </tr>    
+  {% endfor %}
+</table>
+{% else %}
+    <p>No entries.</p>
+{% endif %}
+

@@ -1,0 +1,197 @@
+{% extends "logbook/base.html" %}
+
+{% block content %}
+{% if entry_number != 0 %}
+   <h4>No. {{ entry_number }} {{ message }}</h4>
+{% else %}
+   <h4>{{ message }}</h4>
+{% endif %}
+
+{{ form.non_field_errors }}
+
+<form action={% url 'flight' entry_number %} method=POST>
+{% csrf_token %}
+<div class="fieldWrapper">
+    Date (mm.dd.yy):
+    {{ form.date }}
+    <span style="display:inline-block; width:1.0em;"></span>
+    Route:
+    {{ form.route }}  &nbsp &nbsp
+    Was recreational?
+    {{ form.was_recreational }}
+</div>
+<div class="fieldWrapper">
+    Aircraft ID:
+    {{ form.aircraft_ID }}
+    <span style="display:inline-block; width:1.0em;"></span>
+    Remarks:
+    {{ form.remarks }}  &nbsp &nbsp
+</div>
+<div class="fieldWrapper">
+    Make/model:
+    {{ form.make_and_model }}  &nbsp 
+      {% if entry_number != 0 %}
+      ({{ flight.make_and_model.manufacturer.name }},
+       {{ flight.make_and_model.equipment.complexity }})
+      {% endif %}
+</div>
+<div class="fieldWrapper">
+    FAA part:
+    {{ form.faa_part }}
+    <span style="display:inline-block; width:3em;"></span>
+  Day landings: {{ form.day_landings }} &nbsp
+  Night Landings: {{ form.night_landings }} &nbsp
+  {% if entry_number != 0 %}
+    (Total: {{ flight.total_landings }})
+  {% endif %}
+</div>
+<br>
+<div class="fieldWrapper">
+<table> <caption> Approaches: </caption>
+  <tr>  <th>Total</th>
+        <td>{{ form.ILS.errors }} ILS</td>
+        <td>{{ form.GPS.errors }} RNAV</td>
+        <td>{{ form.AR.errors }} AR</td>
+        <td>{{ form.LOC.errors }} LOC</td>
+        <td>{{ form.VOR.errors }} VOR</td>
+        <td>{{ form.NDB.errors }} NDB</td>
+        <td>{{ form.BC.errors }} BC</td>
+        <td>{{ form.ASR.errors }} ASR</td>
+  </tr>
+  <tr>  <td>{% if entry_number != 0 %}{{ flight.total_approaches }}{% endif %}</td>
+        <td>{{ form.ILS }}</td>
+        <td>{{ form.GPS }}</td>
+        <td>{{ form.AR }}</td>
+        <td>{{ form.LOC }}</td>
+        <td>{{ form.VOR }}</td>
+        <td>{{ form.NDB }}</td>
+        <td>{{ form.BC }}</td>
+	<td>{{ form.ASR }}</td>	
+  </tr>
+</table>
+</div>
+<br>
+<div class="FieldWrapper">
+<table><caption> Hours: </caption>
+  <tr>  <th>Total</th>
+        <td>{{ form.command_practice.errors }} Cmd practice </td>
+        <td>{{ form.actual.errors }} Actual</td>
+        <td>{{ form.hood.errors }} Hood</td>
+        <td>{{ form.night.errors }} Night</td>
+        <td>{{ form.CFI.errors }} CFI</td>
+        <td>{{ form.dual.errors }} Dual</td>
+        <td>{{ form.XC.errors }} XC</td>
+        <td>{{ form.PIC.errors }} PIC</td>
+        <td>{{ form.SIC.errors }} SIC</td>
+        <td>{{ form.solo.errors }} Solo</td>
+  </tr>
+  <tr>  <td>{{ form.duration }}</td> 
+        <td>{{ form.command_practice }}</td>
+        <td>{{ form.actual }}</td>
+        <td>{{ form.hood }}</td>
+        <td>{{ form.night }}</td>
+        <td>{{ form.CFI }}</td>
+        <td>{{ form.dual }}</td>
+        <td>{{ form.XC }}</td>
+        <td>{{ form.PIC }}</td>
+        <td>{{ form.SIC }}</td>
+        <td>{{ form.solo }}</td>
+  </tr>
+</table>
+</div>
+<br>
+<div class="FieldWrapper">
+<table><caption>Hours (detail):</caption>
+  <tr style="background-color:white">
+         <td></td><td>Night</td> <td>CFI</td> <td>Dual</td> <td>XC</td>
+         <td>PIC</td> <td>SIC</td> <td>Solo</td> 
+  </tr>  
+  <tr  style="background-color:#dddddd">
+        <td style="background-color:white">Actual</td>
+        <td>{{ form.night_actual }}</td> 
+        <td>{% if entry_number != 0 %}{{ flight.CFI_actual }}{% endif %}</td>
+        <td>{% if entry_number != 0 %}{{ flight.dual_actual }}{% endif %}</td>
+        <td>{{ form.XC_actual }}</td>
+        <td>{% if entry_number != 0 %}{{ flight.PIC_actual }}{% endif %}</td>
+        <td>{% if entry_number != 0 %}{{ flight.SIC_actual }}{% endif %}</td>
+        <td>{% if entry_number != 0 %}{{ flight.solo_actual }}{% endif %}</td>
+  </tr>
+  <tr style="background-color:#dddddd">
+        <td style="background-color:white">Hood</td>
+        <td>{{ form.night_hood }}</td>
+        <td style="background-color:white"></td>
+        <td>{% if entry_number != 0 %}{{ flight.dual_hood }}{% endif %}</td>
+        <td>{{ form.XC_hood }}</td>
+        <td>{% if entry_number != 0 %}{{ flight.PIC_hood }}{% endif %}</td>
+        <td>{% if entry_number != 0 %}{{ flight.SIC_hood }}{% endif %}</td>
+        <td style="background-color:white"></td>
+  </tr>
+  <tr style="background-color:#dddddd">  
+        <td style="background-color:white">Night</td>
+	<td style="background-color:white"></td>
+	<td>{% if entry_number != 0 %}{{ flight.CFI_night }}{% endif %}</td>
+        <td>{% if entry_number != 0 %}{{ flight.dual_night }}{% endif %}</td>
+        <td>{{ form.XC_night }}</td>
+        <td>{% if entry_number != 0 %}{{ flight.PIC_night }}{% endif %}</td>
+        <td>{% if entry_number != 0 %}{{ flight.SIC_night }}{% endif %}</td>
+	<td>{% if entry_number != 0 %}{{ flight.solo_night }}{% endif %}</td>
+  </tr>
+  <tr style="background-color:#dddddd">
+        <td style="background-color:white">CFI</td>
+        <td style="background-color:white"></td>
+        <td style="background-color:white"></td>
+        <td style="background-color:white"></td>
+        <td>{% if entry_number != 0 %}{{ flight.XC_CFI }}{% endif %}</td>
+        <td>{% if entry_number != 0 %}{{ flight.PIC_CFI }}{% endif %}</td>
+        <td>{% if entry_number != 0 %}{{ flight.SIC_CFI }}{% endif %}</td>
+        <td style="background-color:white"></td>
+  </tr>
+  <tr style="background-color:#dddddd">
+        <td style="background-color:white">Dual</td>
+        <td style="background-color:white"></td>
+        <td style="background-color:white"></td>
+        <td style="background-color:white"></td>
+        <td>{% if entry_number != 0 %}{{ flight.XC_dual }}{% endif %}</td>
+        <td>{% if entry_number != 0 %}{{ flight.PIC_dual }}{% endif %}</td>
+	<td>{% if entry_number != 0 %}{{ flight.SIC_dual }}{% endif %}</td>
+        <td style="background-color:white"></td>
+  </tr>	
+  <tr style="background-color:#dddddd">
+        <td style="background-color:white">XC</td>
+        <td style="background-color:white"></td>
+        <td style="background-color:white"></td>
+        <td style="background-color:white"></td>
+        <td style="background-color:white"></td>
+        <td>{{ form.PIC_XC }}</td>
+        <td>{{ form.SIC_XC }}</td>
+        <td>{{ form.solo_XC }}</td>
+  </tr>	
+  <tr style="background-color:#dddddd">
+        <td style="background-color:white">PIC</td>
+        <td style="background-color:white"></td>
+        <td style="background-color:white"></td>
+        <td style="background-color:white"></td>
+        <td style="background-color:white"></td>
+        <td style="background-color:white"></td>
+        <td style="background-color:white"></td>
+        <td>{% if entry_number != 0 %}{{ flight.solo_PIC }}{% endif %}</td>
+  </tr>	
+</table>
+</div>	
+<br>
+   <input type="submit" value="Save" name="action"> &bull;
+   <input type="submit" value="Save and create new" name="action" tabindex="19"> &bull;
+   <input type="submit" value="New entry" name="action"> &bull;
+   <input type="submit" value="Delete" name="action"> &bull;
+   <input type="submit" value="Cancel" name="action"> &bull;
+   <input type="submit" value="First" name="action"> &bull;
+   <input type="submit" value="Next" name="action"> &bull;
+   <input type="submit" value="Previous" name="action"> &bull;
+   <input type="submit" value="Last" name="action"> 
+
+</form>
+<br>
+{% include "logbook/flight_list.html" %}
+
+{% endblock %}
+

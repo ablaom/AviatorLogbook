@@ -1,0 +1,152 @@
+{% extends 'logbook/base.html' %}
+
+{% block content %}
+<h4> {{ title }}</h4>
+
+<div class="fieldWrapper">
+<table style="font-size:1em"> <caption>Landings: </caption>
+  <tr> <th> Total </th>
+       <td> Day </td>
+       <td> Night </td>
+       
+  </tr>
+  <tr> <td>{{ Flight.total_landings_sum }}</td>
+       <td>{{ Flight.day_landings_sum }}</td>      
+       <td>{{ Flight.night_landings_sum }}</td>
+  </tr>
+</table>
+</div>
+<br>
+<div class="fieldWrapper">
+<table style="font-size:1em"> <caption> Approaches: </caption>
+  <tr>  <th> Total</th>
+        <td> ILS</td>
+        <td> RNAV</td>
+        <td> AR</td>
+        <td> LOC</td>
+        <td> VOR</td>
+        <td> NDB</td>
+        <td> BC</td>
+        <td> ASR</td>
+  </tr>
+  <tr> <td>{{ Flight.total_approaches_sum }}</td>	
+       <td>{{ Flight.ILS_sum }}</td>
+       <td>{{ Flight.GPS_sum }}</td>
+       <td>{{ Flight.AR_sum }}</td>
+       <td>{{ Flight.LOC_sum }}</td>
+       <td>{{ Flight.VOR_sum }}</td>
+       <td>{{ Flight.NDB_sum }}</td>
+       <td>{{ Flight.BC_sum }}</td>
+       <td>{{ Flight.ASR_sum }}</td>
+  </tr>
+</table>
+</div>
+<br>
+<div class="FieldWrapper">
+<table><caption> Hours: </caption>
+  <tr>  <th>Total</th>
+        <td> Cmd practice </td>
+        <td> Actual</td>
+        <td> Hood</td>
+        <td> Night</td>
+        <td> CFI</td>
+        <td> Dual</td>
+        <td> XC</td>
+        <td> PIC</td>
+        <td> SIC</td>
+        <td> Solo</td>
+  </tr>
+  <tr>  <td>{{ Flight.duration_sum }}</td> 
+        <td>{{ Flight.command_practice_sum }}</td>
+        <td>{{ Flight.actual_sum }}</td>
+        <td>{{ Flight.hood_sum }}</td>
+        <td>{{ Flight.night_sum }}</td>
+        <td>{{ Flight.CFI_sum }}</td>
+        <td>{{ Flight.dual_sum }}</td>
+        <td>{{ Flight.XC_sum }}</td>
+        <td>{{ Flight.PIC_sum }}</td>
+        <td>{{ Flight.SIC_sum }}</td>
+        <td>{{ Flight.solo_sum }}</td>
+  </tr>
+</table>
+</div>
+<br>
+<div class="FieldWrapper">
+<table><caption>Hours (detail):</caption>
+  <tr style="background-color:white">
+         <td></td><td>Night</td> <td>CFI</td> <td>Dual</td> <td>XC</td>
+         <td>PIC</td> <td>SIC</td> <td>Solo</td> 
+  </tr>  
+  <tr  style="background-color:#dddddd">
+        <td style="background-color:white">Actual</td>
+        <td>{{ Flight.night_actual_sum }}</td> 
+        <td>{{ Flight.CFI_actual_sum }}</td>
+        <td>{{ Flight.dual_actual_sum }}</td>
+        <td>{{ Flight.XC_actual_sum }}</td>
+        <td>{{ Flight.PIC_actual_sum }}</td>
+        <td>{{ Flight.SIC_actual_sum }}</td>
+        <td>{{ Flight.solo_actual_sum }}</td>
+  </tr>
+  <tr style="background-color:#dddddd">
+        <td style="background-color:white">Hood</td>
+        <td>{{ Flight.night_hood_sum }}</td>
+        <td style="background-color:white"></td>
+        <td>{{ Flight.dual_hood_sum }}</td>
+        <td>{{ Flight.XC_hood_sum }}</td>
+        <td>{{ Flight.PIC_hood_sum }}</td>
+        <td>{{ Flight.SIC_hood_sum }}</td>
+        <td style="background-color:white"></td>
+  </tr>
+  <tr style="background-color:#dddddd">  
+        <td style="background-color:white">Night</td>
+	<td style="background-color:white"></td>
+	<td>{{ Flight.CFI_night_sum }}</td>
+        <td>{{ Flight.dual_night_sum }}</td>
+        <td>{{ Flight.XC_night_sum }}</td>
+        <td>{{ Flight.PIC_night_sum }}</td>
+        <td>{{ Flight.SIC_night_sum }}</td>
+	<td>{{ Flight.solo_night_sum }}</td>
+  </tr>
+  <tr style="background-color:#dddddd">
+        <td style="background-color:white">CFI</td>
+        <td style="background-color:white"></td>
+        <td style="background-color:white"></td>
+        <td style="background-color:white"></td>
+        <td>{{ Flight.XC_CFI_sum }}</td>
+        <td>{{ Flight.PIC_CFI_sum }}</td>
+        <td>{{ Flight.SIC_CFI_sum }}</td>
+        <td style="background-color:white"></td>
+  </tr>
+  <tr style="background-color:#dddddd">
+        <td style="background-color:white">Dual</td>
+        <td style="background-color:white"></td>
+        <td style="background-color:white"></td>
+        <td style="background-color:white"></td>
+        <td>{{ Flight.XC_dual_sum }}</td>
+        <td>{{ Flight.PIC_dual_sum }}</td>
+	<td>{{ Flight.SIC_dual_sum }}</td>
+        <td style="background-color:white"></td>
+  </tr>	
+  <tr style="background-color:#dddddd">
+        <td style="background-color:white">XC</td>
+        <td style="background-color:white"></td>
+        <td style="background-color:white"></td>
+        <td style="background-color:white"></td>
+        <td style="background-color:white"></td>
+        <td>{{ Flight.PIC_XC_sum }}</td>
+        <td>{{ Flight.SIC_XC_sum }}</td>
+        <td>{{ Flight.solo_XC_sum }}</td>
+  </tr>	
+  <tr style="background-color:#dddddd">
+        <td style="background-color:white">PIC</td>
+        <td style="background-color:white"></td>
+        <td style="background-color:white"></td>
+        <td style="background-color:white"></td>
+        <td style="background-color:white"></td>
+        <td style="background-color:white"></td>
+        <td style="background-color:white"></td>
+        <td>{{ Flight.solo_PIC_sum }}</td>
+  </tr>	
+</table>
+</div>	
+{% endblock %}

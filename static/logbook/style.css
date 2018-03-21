@@ -1,0 +1,30 @@
+body {font-size:1.2em;}
+
+table {
+    font-size:0.9em;
+    border-collapse: collapse;
+    width: 100%;
+}
+td, th {
+    border: 1px solid #bbbbbb;
+        text-align: center;
+        padding: 0.17em;
+        }
+tr:nth-child(even) {
+        background-color: #dddddd;
+        }
+
+ul.sidebar-nav {
+    list-style-type: none;
+    width: 100%;
+}
+
+input[type="submit"]{
+     background:none!important;
+     color:#337ab7;
+     border:none; 
+!     padding:0!important;
+     font: inherit;
+     cursor: pointer;
+     background-color: white;
+}

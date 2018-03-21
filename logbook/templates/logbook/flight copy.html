@@ -1,0 +1,192 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'logbook/verde_moderna.css' %}"/>
+<title>Log entry {{ flight.id }}</title>
+</head>
+<body>
+
+{% if message != None %}
+   <h2>No. {{ flight.id }} Please enter a valid date!</h2>
+{% else %}
+<h2>No. {{ flight.id }} </h2>
+{% endif %}
+
+{{ form.non_field_errors }}
+<form action={% url 'edit' flight.id %} method=POST>{% csrf_token %}
+<div class="fieldWrapper">
+    Date (mm/dd/yy):
+    {{ form.date }}
+    <span style="display:inline-block; width:1.0em;"></span>
+    {{ form.route.label_tag }}
+    {{ form.route }}  &nbsp &nbsp
+    {{ form.was_recreational.label_tag }}
+    {{ form.was_recreational }}
+</div>
+<div class="fieldWrapper">
+    {{ form.aircraft_ID.label_tag }}
+    {{ form.aircraft_ID }}
+    <span style="display:inline-block; width:2.8em;"></span>
+    {{ form.remarks.label_tag }}
+    {{ form.remarks }}  &nbsp &nbsp
+</div>
+<div class="fieldWrapper">
+    {{ form.make_and_model.label_tag }}
+    {{ form.make_and_model }}  &nbsp 
+      ({{ flight.make_and_model.manufacturer.name }},
+       {{ flight.make_and_model.equipment.complexity }})
+</div>
+<div class="fieldWrapper">
+    {{ form.faa_part.label_tag }}
+    {{ form.faa_part }}
+    <span style="display:inline-block; width:3em;"></span>
+  Day landings: {{ form.day_landings }} &nbsp
+  Night Landings: {{ form.night_landings }} &nbsp
+  (Total: {{ flight.total_landings }})
+</div>
+<br>
+<div class="fieldWrapper">
+<table style="font-size:1em"> <caption> Approaches: </caption>
+  <tr>  <th>Total</th>
+        <td>{{ form.ILS.errors }} ILS</td>
+        <td>{{ form.GPS.errors }} RNAV</td>
+        <td>{{ form.AR.errors }} AR</td>
+        <td>{{ form.LOC.errors }} LOC</td>
+        <td>{{ form.VOR.errors }} VOR</td>
+        <td>{{ form.NDB.errors }} NDB</td>
+        <td>{{ form.BC.errors }} BC</td>
+        <td>{{ form.ASR.errors }} ASR</td>
+  </tr>
+  <tr>  <td>{{ flight.total_approaches }}</td>
+        <td>{{ form.ILS }}</td>
+        <td>{{ form.GPS }}</td>
+        <td>{{ form.AR }}</td>
+        <td>{{ form.LOC }}</td>
+        <td>{{ form.VOR }}</td>
+        <td>{{ form.NDB }}</td>
+        <td>{{ form.BC }}</td>
+	<td>{{ form.ASR }}</td>	
+  </tr>
+</table>
+</div>
+<br>
+<div class="FieldWrapper">
+<table style="font-size:1em"><caption> Hours: </caption>
+  <tr>  <th>Total</th>
+        <td>{{ form.command_practice.errors }} Cmd practice </td>
+        <td>{{ form.actual.errors }} Actual</td>
+        <td>{{ form.hood.errors }} Hood</td>
+        <td>{{ form.night.errors }} Night</td>
+        <td>{{ form.CFI.errors }} CFI</td>
+        <td>{{ form.dual.errors }} Dual</td>
+        <td>{{ form.XC.errors }} XC</td>
+        <td>{{ form.PIC.errors }} PIC</td>
+        <td>{{ form.SIC.errors }} SIC</td>
+        <td>{{ form.solo.errors }} Solo</td>
+  </tr>
+  <tr>  <td>{{ form.duration }}</td> 
+        <td>{{ form.command_practice }}</td>
+        <td>{{ form.actual }}</td>
+        <td>{{ form.hood }}</td>
+        <td>{{ form.night }}</td>
+        <td>{{ form.CFI }}</td>
+        <td>{{ form.dual }}</td>
+        <td>{{ form.XC }}</td>
+        <td>{{ form.PIC }}</td>
+        <td>{{ form.SIC }}</td>
+        <td>{{ form.solo }}</td>
+  </tr>
+</table>
+</div>
+<br>
+<div class="FieldWrapper">
+<table style="font-size:1em"><caption>Hours (detail):</caption>
+  <tr style="background-color:white">
+         <td></td><td>Night</td> <td>CFI</td> <td>Dual</td> <td>XC</td>
+         <td>PIC</td> <td>SIC</td> <td>Solo</td> 
+  </tr>  
+  <tr  style="background-color:#dddddd">
+        <td style="background-color:white">Actual</td>
+        <td>{{ form.night_actual }}</td> 
+        <td>{{ flight.CFI_actual }}</td>
+        <td>{{ flight.dual_actual }}</td>
+        <td>{{ form.XC_actual }}</td>
+        <td>{{ flight.PIC_actual }}</td>
+        <td>{{ flight.SIC_actual }}</td>
+        <td>{{ flight.solo_actual }}</td>
+  </tr>
+  <tr style="background-color:#dddddd">
+        <td style="background-color:white">Hood</td>
+        <td>{{ form.night_hood }}</td>
+        <td style="background-color:white"></td>
+        <td>{{ flight.dual_hood }}</td>
+        <td>{{ form.XC_hood }}</td>
+        <td>{{ flight.PIC_hood }}</td>
+        <td>{{ flight.SIC_hood }}</td>
+        <td style="background-color:white"></td>
+  </tr>
+  <tr style="background-color:#dddddd">  
+        <td style="background-color:white">Night</td>
+	<td style="background-color:white"></td>
+	<td>{{ flight.CFI_night }}</td>
+        <td>{{ flight.dual_night }}</td>
+        <td>{{ form.XC_night }}</td>
+        <td>{{ flight.PIC_night }}</td>
+        <td>{{ flight.SIC_night }}</td>
+	<td>{{ flight.solo_night }}</td>
+  </tr>
+  <tr style="background-color:#dddddd">
+        <td style="background-color:white">CFI</td>
+        <td style="background-color:white"></td>
+        <td style="background-color:white"></td>
+        <td style="background-color:white"></td>
+        <td>{{ flight.XC_CFI }}</td>
+        <td>{{ flight.PIC_CFI }}</td>
+        <td>{{ flight.SIC_CFI }}</td>
+        <td style="background-color:white"></td>
+  </tr>
+  <tr style="background-color:#dddddd">
+        <td style="background-color:white">Dual</td>
+        <td style="background-color:white"></td>
+        <td style="background-color:white"></td>
+        <td style="background-color:white"></td>
+        <td>{{ flight.XC_dual }}</td>
+        <td>{{ flight.PIC_dual }}</td>
+	<td>{{ flight.SIC_dual }}</td>
+        <td style="background-color:white"></td>
+  </tr>	
+  <tr style="background-color:#dddddd">
+        <td style="background-color:white">XC</td>
+        <td style="background-color:white"></td>
+        <td style="background-color:white"></td>
+        <td style="background-color:white"></td>
+        <td style="background-color:white"></td>
+        <td>{{ form.PIC_XC }}</td>
+        <td>{{ form.SIC_XC }}</td>
+        <td>{{ form.solo_XC }}</td>
+  </tr>	
+  <tr style="background-color:#dddddd">
+        <td style="background-color:white">PIC</td>
+        <td style="background-color:white"></td>
+        <td style="background-color:white"></td>
+        <td style="background-color:white"></td>
+        <td style="background-color:white"></td>
+        <td style="background-color:white"></td>
+        <td style="background-color:white"></td>
+        <td>{{ flight.solo_PIC }}</td>
+  </tr>	
+</table>
+</div>	
+<br>
+   <input type="submit" value="Save" name="action">
+   <input type="submit" value="Save and create new" name="action">
+   <input type="submit" value="Delete" name="action"> &nbsp &nbsp
+   <input type="submit" value="First" name="action">
+   <input type="submit" value="Next" name="action">
+   <input type="submit" value="Previous" name="action">
+   <input type="submit" value="Last" name="action"> &nbsp &nbsp
+   <input type="submit" value="Home" name="action">
+</form>
+
+</body> </html> 

@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+
+{% block title %}<title>Aviator Log</title>{% endblock %}
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'logbook/style.css' %}"/>
+
+</head>
+
+<body>
+
+  <div class="container-fluid">
+
+    <div class="row">
+    <div class="col-sm-3">
+      <ul class="sidebar-nav">
+        <li> <h3 style="color:#bbbbbb"> Aviator Log</h3> </li>
+	<li> <h4> {{ user.first_name}} {{ user.last_name }} </h4> </li>
+        <li><a href={% url 'index' %}>Home</a></li>
+	<li><a href={% url 'create' %}>New entry</a></li>
+	<li><a href={% url 'edit_make_model_choose' %}>Edit make/models</a></li>
+	<li><a href={% url 'summaries' %}>Summaries</a></li>
+	<li><a href={% url 'logout' %}>Logout</a></li>
+	<li> <span style="display:inline-block; width:1.5em;"></span> &#x2708 </li>
+        {% block sidebar %}
+	{% endblock %}
+	<li> <span> &nbsp </span> </li>
+        <li> <span style="color:#bbbbbb"> version 0.1</space></li>
+        <li> <span style="color:#bbbbbb"> &copy; 2017 data supermodels</space></li>
+      </ul>
+      </div>
+      <div class="col-sm-9 ">
+	<div style="margin-top:1.8em">
+	{% block content %}
+	{% endblock %}
+	</div>  
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
+

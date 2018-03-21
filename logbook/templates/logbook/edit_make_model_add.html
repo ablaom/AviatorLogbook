@@ -1,0 +1,43 @@
+{% extends "logbook/base.html" %}
+
+{% block content %}
+
+<h4>New make and model:</h4>
+{{ form.non_field_errors }}
+<form action={% url 'edit_make_model_add' %} method=POST>
+{% csrf_token %}
+  <div class="fieldWrapper">
+    <span style="display:inline-block;width:19.5em;text-align:left">
+    Make/Model name (e.g., C152, B777-300):
+    </span> {{ form.name }}{{ form.name.errors }}<br>
+    <span style="display:inline-block;width:19.5em;text-align:left">
+    Manufacturer  (e.g., Piper, Boeing):  
+    </span> {{ form.manufacturer }}{{ form.manufacturer.errors }}<br> 
+    <span style="display:inline-block;width:19.5em;text-align:left">
+    Engine:
+    </span> {{ form.engine }}{{ form.engine.errors }}<br>
+    <span style="display:inline-block;width:19.5em;text-align:left">
+    Equipment complexity:
+    </span> {{ form.equipment }}{{ form.equipment.errors }}
+  </div>
+  <br>  
+  <input type="submit" value="Save" name="action"><br>
+  <input type="submit" value="Save and add another" name="action"><br>
+  <input type="submit" value="Cancel" name="action">
+</form>
+
+{% endblock %}
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html> <head>
+<title></title>
+</head>
+
+<body>
+<h1></h1>
+
+
+
+<hr>
+<address></address>
+<!-- hhmts start -->Last modified: Mon May  8 22:55:25 NZST 2017 <!-- hhmts end -->
+</body> </html>
